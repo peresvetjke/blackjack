@@ -1,0 +1,3 @@
+class LivePlayer < Player
+
+end
