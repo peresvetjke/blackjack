@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CardGame
   include InstanceCounter
 
-  BLANKS = %w{2 3 4 5 6 7 8 9 10 J Q K A}
-  SUITS = %w{hearts diamond spades clubs}
+  BLANKS = %w[2 3 4 5 6 7 8 9 10 J Q K A].freeze
+  SUITS = %w[hearts diamond spades clubs].freeze
 
   attr_reader :casino, :rounds, :card_deck
 
@@ -10,7 +12,6 @@ class CardGame
     @casino = casino
     @card_deck = define_card_deck
     register_instance
-    casino.games << self
   end
 
   protected

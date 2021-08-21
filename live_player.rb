@@ -1,3 +1,4 @@
-class LivePlayer < Player
+# frozen_string_literal: true
 
+class LivePlayer < Player
 end

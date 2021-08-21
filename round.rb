@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Round
   include InstanceCounter
 
-  def initialize(game, pot) 
+  def initialize(game, pot)
     @game = game
     @pot = pot
     game.rounds << self
