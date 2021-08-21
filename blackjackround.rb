@@ -1,7 +1,4 @@
 class BlackJackRound < Round
-  # instance_number: Integer
-  # bank
-
   attr_reader :game, :pot, :hands, :undrawn
   attr_accessor :status, :cards, :winner
 

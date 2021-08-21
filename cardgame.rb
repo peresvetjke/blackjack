@@ -1,4 +1,6 @@
 class CardGame
+  include InstanceCounter
+
   BLANKS = %w{2 3 4 5 6 7 8 9 10 J Q K A}
   SUITS = %w{hearts diamond spades clubs}
 
@@ -7,6 +9,7 @@ class CardGame
   def initialize(casino)
     @casino = casino
     @card_deck = define_card_deck
+    register_instance
     casino.games << self
   end
 
@@ -23,11 +26,5 @@ class CardGame
       end
     end
     card_deck
-  end
-
-  def collect_bets(bet = BET)
-    raise StandardError.new, "Not enough chips. New game should be started" if @chips[:dealer] < bet || @chips[:live_player] < bet
-    @chips[:dealer] -= bet
-    @chips[:live_player] -= bet
   end
 end

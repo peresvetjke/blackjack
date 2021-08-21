@@ -1,8 +1,9 @@
 class BlackJackGame < CardGame
-  BUYIN = 100
+  BUYIN = 30
   BET = 10
   
-  attr_reader :dealer, :player
+  attr_reader :players
+  attr_accessor :chips
 
   def initialize(casino, dealer, live_player, buyin = BUYIN)
     super(casino)
@@ -15,6 +16,17 @@ class BlackJackGame < CardGame
     collect_bets(bet)
     pot = bet * 2
     round = BlackJackRound.new(self, pot)
+  end
+
+  def charge_winner(round)
+    raise StandardError.new unless round.status == :finished
+    if round.winner == :live_player
+      self.chips[:live_player] += round.pot
+    elsif round.winner == :dealer
+      self.chips[:dealer] += round.pot
+    else
+      return_bets(round.pot / 2)
+    end
   end
 
   def evaluate_hand(cards_to_evaluate)
@@ -46,5 +58,16 @@ class BlackJackGame < CardGame
     elsif blank == 'A'
       hand_value <= 10 ? 11 : 1
     end
+  end
+
+  def collect_bets(bet = BET)
+    raise StandardError.new, "Not enough chips. New game should be started" if @chips[:dealer] < bet || @chips[:live_player] < bet
+    @chips[:dealer] -= bet
+    @chips[:live_player] -= bet
+  end
+
+  def return_bets(bet = BET)
+    @chips[:dealer] += bet
+    @chips[:live_player] += bet
   end
 end

@@ -13,18 +13,26 @@ class AutoCasino
     live_player = create_new_live_player(player_name)
     game = create_new_game(live_player)
     @games << game
-    round = game.start_new_round
-    show_hands(round)
-    request_players_turn(round)
-    request_dealers_turn(round)
-    show_hands(round)
-    show_result(round)
+    loop do
+      round = game.start_new_round
+      show_round_header(round)
+      show_hands(round)
+      request_players_turn(round)
+      request_dealers_turn(round)
+      show_hands(round)
+      game.charge_winner(round)
+      show_result(round)
+    end
   end
 
   private
 
+  def show_round_info(round)
+    puts "Round #{round.class.instances}"
+  end
+
   def show_hands(round)
-    puts '----------------------------------------'
+    puts '----------------------------------------------------'
     puts "Your hand: #{round.cards[:live_player].join(' | ')}. Value: #{round.game.evaluate_hand(round.cards[:live_player])}"
     if round.status == :ongoing
       puts "Dealer's hand: *******unknown*******"
@@ -33,8 +41,13 @@ class AutoCasino
     end
   end
 
+  def show_round_header(round)
+    puts '----------------------------------------------------'
+    puts "Round ##{round.class.instances}"
+  end
+
   def show_result(round)
-    puts '----------------------------------------'
+    puts '----------------------------------------------------'
     winner = round.winner
     if winner == :none
       puts "Draw!"
@@ -43,6 +56,7 @@ class AutoCasino
     elsif winner == :live_player
       puts "You won."
     end
+    puts "#{round.game.players[:live_player].name} - #{round.game.chips[:live_player]}; #{round.game.players[:dealer].name} - #{round.game.chips[:dealer]}$."
   end
 
   def request_players_turn(round)

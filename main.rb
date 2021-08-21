@@ -1,3 +1,4 @@
+require_relative 'instance_counter'
 require_relative 'auto_casino'
 require_relative 'player'
 require_relative 'live_player'
