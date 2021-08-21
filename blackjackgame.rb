@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BlackJackGame < CardGame
-  BUYIN = 20
+  BUYIN = 100
   BET = 10
 
   attr_reader :players
