@@ -17,12 +17,6 @@ class BlackJackGame < CardGame
     round = BlackJackRound.new(self, pot)
   end
 
-  def dealers_decision(round)
-    if round.round_info[:dealers_hand_value] < 17
-      round.draw_card(self.hands.first)
-    end
-  end
-
   def evaluate_hand(cards_to_evaluate)
     value = 0
     blank_hand = cards_to_evaluate.map { |card| make_blank(card) }
@@ -31,6 +25,10 @@ class BlackJackGame < CardGame
       value += card_value(card, value) 
     end
     value
+  end
+
+  def hit_card_to_dealer?(round)
+    evaluate_hand(round.cards[:dealer]) < 17 ? true : false
   end
 
   private

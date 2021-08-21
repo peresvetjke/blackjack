@@ -2,8 +2,8 @@ class BlackJackRound < Round
   # instance_number: Integer
   # bank
 
-  attr_reader :game, :pot, :hands, :undrawn, :winner
-  attr_accessor :status, :cards
+  attr_reader :game, :pot, :hands, :undrawn
+  attr_accessor :status, :cards, :winner
 
   def initialize(game, pot) 
     super(game, pot)
@@ -22,8 +22,23 @@ class BlackJackRound < Round
   end
 
   def round_info
-    {dealers_hand: cards[:dealer], dealers_hand_value: game.evaluate_hand(cards[:dealer]), players_hand: cards[:live_player], 
-      players_hand_value: game.evaluate_hand(cards[:live_player]), pot: pot, winner: winner, status: status}
+#    {dealers_hand: cards[:dealer], dealers_hand_value: game.evaluate_hand(cards[:dealer]), players_hand: cards[:live_player], 
+#      players_hand_value: game.evaluate_hand(cards[:live_player]), pot: pot, winner: winner, status: status}
+  end
+
+  def winner
+    #puts "round.round_info[:status] = #{round.round_info[:status]}"
+    if status == :finished
+      players_hv = game.evaluate_hand(cards[:live_player])
+      dealers_hv = game.evaluate_hand(cards[:dealer])
+      if (players_hv == dealers_hv) || (players_hv > 21 && dealers_hv > 21)
+        @winner = :none
+      elsif (players_hv > dealers_hv && players_hv <= 21 && dealers_hv <= 21) || (players_hv <= 21 && dealers_hv > 21)
+        @winner = :live_player
+      elsif (players_hv < dealers_hv && players_hv <= 21 && dealers_hv <= 21) || (players_hv > 21 && dealers_hv <= 21)
+        @winner = :dealer
+      end
+    end
   end
 
   def draw_card(player)
