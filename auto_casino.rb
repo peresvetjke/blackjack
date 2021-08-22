@@ -40,11 +40,11 @@ class AutoCasino
 
   def show_hands(round)
     puts '--------'
-    puts "Your hand: #{round.cards[:live_player].join(' | ')}. Value: #{round.game.evaluate_hand(round.cards[:live_player])}"
+    puts "Your hand: #{round.deck.hands[:live_player].cards.join(' | ')}. Value: #{round.deck.hands[:live_player])}"
     if round.status == :ongoing
       puts "Dealer's hand: *******unknown*******"
     else
-      puts "Dealer's hand: #{round.cards[:dealer].join(' | ')}. Value: #{round.game.evaluate_hand(round.cards[:dealer])}"
+      puts "Dealer's hand: #{round.deck.hands[:dealer].cards..join(' | ')}. Value: #{round.deck.hands[:dealer])}"
     end
   end
 
@@ -78,7 +78,7 @@ class AutoCasino
       round.status = :finishing
     when 2
       puts 'You decided to Hit a card.'
-      round.draw_card(:live_player)
+      round.deck.draw_card(round.deck[:live_player])
       round.status = :finishing
     when 3
       round.status = :finished

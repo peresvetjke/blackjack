@@ -8,7 +8,6 @@ require_relative 'dealer'
 require_relative 'cardgame'
 require_relative 'blackjackgame'
 require_relative 'round'
-require_relative 'blackjackround'
 require 'pry'
 
 casino1 = AutoCasino.new('JQ21-Casino')
