@@ -28,9 +28,9 @@ class Deck
   def new_card_deck
     cards = []
     SUITS.each do |suit|
-      BLANKS.each { |blank| cards << Card.new(self, blank, suit, blank.to_i) }
-      FACES.each { |face| cards << Card.new(self, face, suit, 10) }
-      cards << Card.new(self, ACE, suit, 11, true)
+      BLANKS.each { |blank| cards << Card.new(blank, suit, blank.to_i) }
+      FACES.each { |face| cards << Card.new(face, suit, 10) }
+      cards << Card.new(ACE, suit, 11, true)
     end
     cards.shuffle
   end
