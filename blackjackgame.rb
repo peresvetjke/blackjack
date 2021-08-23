@@ -3,7 +3,7 @@
 class BlackJackGame
   include InstanceCounter
 
-  BUYIN = 20
+  BUYIN = 100
   BET = 10
 
   attr_reader :casino, :rounds, :dealer, :live_player

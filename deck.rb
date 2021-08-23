@@ -35,16 +35,3 @@ class Deck
     cards.shuffle
   end
 end
-
-# def initialize(deck, blank, suit, value, is_ace = false)
-=begin
-    blank = make_blank(card)
-    if %w[2 3 4 5 6 7 8 9 10].include?(blank)
-      blank.to_i
-    elsif %w[J Q K].include?(blank)
-      10
-    elsif blank == 'A'
-      hand.value <= 10 ? 11 : 1
-    end
-
-=end

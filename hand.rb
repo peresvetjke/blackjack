@@ -13,14 +13,14 @@ class Hand
 
   def value
     v = 0
-    @cards.each do |card| 
+    @cards.each do |card|
       v += (v > 10 && card.is_ace == true) ? 1 : card.value
     end
-    #@value = 
+    #@value =
     v
   end
 
   def output
-    cards.map { |c| c.cover }.join(' | ')
+    cards.map(&:cover).join(' | ')
   end
 end
