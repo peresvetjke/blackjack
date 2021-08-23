@@ -1,11 +1,12 @@
 class Card
-  attr_reader :blank, :suit, :value
+  attr_reader :blank, :suit, :value, :is_ace
 
   def initialize(deck, blank, suit, value, is_ace = false)
-    @deck = deck
+    # @deck = deck
     @blank = blank
     @suit = suit
     @value = value
+    @is_ace = is_ace
   end
 
   def cover

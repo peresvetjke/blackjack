@@ -1,7 +1,7 @@
 class Deck
-  BLANKS = %w[2 3 4 5 6 7 8 9 10 J Q K A].freeze
+  BLANKS = %w[2 3 4 5 6 7 8 9 10].freeze
   FACES = %w[J Q K].freeze
-  ACE = ['A'].freeze
+  ACE = 'A'.freeze
   SUITS = %w[hearts diamond spades clubs].freeze
 
   attr_reader :round, :undrawn, :hands
@@ -10,6 +10,10 @@ class Deck
     @round = round
     @undrawn = new_card_deck
     @hands = {}
+  end
+
+  def draw_card(hand)
+    hand.add_card(@undrawn.pop)
   end
 
   def draw_initial_hands
@@ -29,10 +33,6 @@ class Deck
       cards << Card.new(self, ACE, suit, 11, true)
     end
     cards.shuffle
-  end
-
-  def draw_card(hand)
-    hand.add_card(@undrawn.pop)
   end
 end
 

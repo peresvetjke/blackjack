@@ -5,7 +5,7 @@ class AutoCasino
 
   def initialize(name)
     @name = name
-    @dealer = Dealer.new('Dealer')
+    @dealer = Dealer.new
   end
 
   def main_menu
@@ -94,7 +94,7 @@ class AutoCasino
     print "Dealer's turn"
     little_pause
     if round.game.hit_card_to_dealer?(round) == true
-      round.draw_card(:dealer)
+      round.deck.draw_card(round.deck.hands[:dealer])
       puts 'Dealer decided to Hit a card.'
     else
       puts 'Dealer decided to Stand.'
