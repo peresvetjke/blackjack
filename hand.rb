@@ -1,9 +1,10 @@
 class Hand
+  attr_reader :cards
+
   def initialize(deck, player)
     @deck = deck
     @player = player
     @cards = []
-    @value = evaluate_hand(cards)
   end
 
   def add_card(card)
@@ -12,12 +13,13 @@ class Hand
 
   def value
     v = 0
-    @cards.each do |card|
-      v += (v > 10 && card.is_ace == true) 1 ? card.value
-    @value = v
+    @cards.each { |card| v += (v > 10 && card.is_ace == true) ? 1 : card.value }
+    v
   end
 
-  def hand_info
+  def output
+    # card_cover = Proc.new { |card| "#{card.blank}-#{card.suit}" }
+    cards.map { |c| c.cover }.join(' | ')
   end
 end
 

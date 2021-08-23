@@ -40,11 +40,11 @@ class AutoCasino
 
   def show_hands(round)
     puts '--------'
-    puts "Your hand: #{round.deck.hands[:live_player].cards.join(' | ')}. Value: #{round.deck.hands[:live_player])}"
+    puts "Your hand: #{round.deck.hands[:live_player].output}. Value: #{round.deck.hands[:live_player].value}"
     if round.status == :ongoing
       puts "Dealer's hand: *******unknown*******"
     else
-      puts "Dealer's hand: #{round.deck.hands[:dealer].cards..join(' | ')}. Value: #{round.deck.hands[:dealer])}"
+      puts "Dealer's hand: #{round.deck.hands[:dealer].output}. Value: #{round.deck.hands[:dealer].value}"
     end
   end
 
@@ -56,14 +56,15 @@ class AutoCasino
   def show_result(round)
     puts '--------'
     winner = round.winner
-    if winner == :none
+    case winner
+    when :none
       puts 'Draw!'
-    elsif winner == :dealer
+    when :dealer
       puts 'Dealer wins.'
-    elsif winner == :live_player
+    when :live_player
       puts 'You won.'
     end
-    puts "#{round.game.players[:live_player].name} - #{round.game.chips[:live_player]}$; #{round.game.players[:dealer].name} - #{round.game.chips[:dealer]}$."
+    puts "#{round.game.live_player.name} - #{round.game.chips[:live_player]}$; #{round.game.dealer.name} - #{round.game.chips[:dealer]}$."
   end
 
   def request_players_turn(round)
@@ -78,7 +79,7 @@ class AutoCasino
       round.status = :finishing
     when 2
       puts 'You decided to Hit a card.'
-      round.deck.draw_card(round.deck[:live_player])
+      round.deck.draw_card(round.deck.hands[:live_player])
       round.status = :finishing
     when 3
       round.status = :finished

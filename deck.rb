@@ -1,6 +1,6 @@
 class Deck
   BLANKS = %w[2 3 4 5 6 7 8 9 10 J Q K A].freeze
-  TEN_AND_FACES = %w[10 J Q K].freeze
+  FACES = %w[J Q K].freeze
   ACE = ['A'].freeze
   SUITS = %w[hearts diamond spades clubs].freeze
 
@@ -16,17 +16,17 @@ class Deck
     @hands[:live_player] = Hand.new(self, round.game.live_player)
     @hands[:dealer] = Hand.new(self, round.game.dealer)
     2.times { draw_card(hands[:live_player]) }
-    2.times { draw_card(hands[:dealer] }
+    2.times { draw_card(hands[:dealer]) }
   end
 
   private
 
   def new_card_deck
     cards = []
-    suits.each do |suit|
-      BLANKS.each { |blank| cards << Card.new(self, blank, suit, number) }
-      TEN_AND_FACES.each { |ten_or_face| cards << Card.new(self, ten_or_face, suit, 10) }
-      cards << Card.new(self, ACE, suit, 11, true) }
+    SUITS.each do |suit|
+      BLANKS.each { |blank| cards << Card.new(self, blank, suit, blank.to_i) }
+      FACES.each { |face| cards << Card.new(self, face, suit, 10) }
+      cards << Card.new(self, ACE, suit, 11, true)
     end
     cards.shuffle
   end

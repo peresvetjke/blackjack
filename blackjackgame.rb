@@ -14,7 +14,6 @@ class BlackJackGame
     @dealer = dealer
     @live_player = live_player
     @chips = { dealer: buyin, live_player: buyin }
-    @rounds = []
     register_instance
   end
 
@@ -38,7 +37,7 @@ class BlackJackGame
   end
 
   def hit_card_to_dealer?(round)
-    evaluate_hand(round.cards[:dealer]) < 17
+    round.deck.hands[:dealer].value < 17
   end
 
   private
