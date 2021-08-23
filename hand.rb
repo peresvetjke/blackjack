@@ -13,10 +13,7 @@ class Hand
 
   def value
     v = 0
-    @cards.each do |card|
-      v += (v > 10 && card.is_ace == true) ? 1 : card.value
-    end
-    #@value =
+    @cards.each { |card| v += (v > 10 && card.is_ace == true) ? 1 : card.value }
     v
   end
 
